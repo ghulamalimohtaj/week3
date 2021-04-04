@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var methodOverride = require('mothod-override');
+var methodOverride = require('method-override');
 //install body parser to access request fields
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -16,7 +16,7 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 app.use(urlencodedParser);
 app.use(bodyParser.json());
 
-app.get('/', function(req, res){
+app.get('/', function(req, res){//0728501000
   
   Post.find((err, posts)=>{
       if(err){
