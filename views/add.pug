@@ -1,0 +1,28 @@
+extends layout2.pug 
+
+block header 
+    header.masthead(style="background-image: url('../public/img/se2.jpeg')")
+        .overlay
+        .container
+            .row
+                .col-lg-8.col-md-10.mx-auto
+                    .site-heading
+                        h2 Software Engineering Dep BLOG
+                        span.subheading Faculty of Computer Science, Balkh University.
+block content 
+    .container
+        .row 
+            .col-lg-8.col-md-10.mx-auto.text-left
+                .h3 Add new blog
+                // New blog form
+                form(action="/create" method="post")
+                    .form-group
+                        label(for="title") Title
+                        input(type="text" name="title" class="form-control")
+                    .form-group
+                        lable(for="author") Author
+                        input(type="text" name="author" class="form-control")
+                    .form-group 
+                        label(for="blog") Blog
+                        input(type="text" name="blog" class="form-control")
+                    input(type="submit" value="Post" class="btn btn-success")

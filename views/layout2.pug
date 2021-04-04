@@ -1,0 +1,86 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description' content='')
+        meta(name='author' content='Aziz Qadeer')
+
+        title Software Engineering Dep Blog
+
+
+        link(href='../public/bootstrap/css/bootstrap.min.css' rel='stylesheet')
+
+        link(href='../public/fontawesome-free/css/all.min.css' rel='stylesheet' type='text/css')
+
+        link(href='../https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css')
+
+        link(href='../https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css')
+
+        link(href='../public/css/clean-blog.min.css' rel='stylesheet')
+
+        script(src="../public/jquery/jquery.js") 
+        script(src="../public/js/myjs.js")
+
+    body 
+        // Navigation
+        nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
+            .container
+                a.navbar-brand(href='/') SE Dep BLOG
+                button.navbar-toggler.navbar-toggler-right(type='button' data-toggle='collapse' data-target='#navbarResponsive' aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation')
+                    | Menu
+                    i.fas.fa-bars
+                #navbarResponsive.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto
+                        li.nav-item
+                            a.nav-link(href='/') Home
+                        li.nav-item
+                            a.nav-link(href='/about') About
+                        li.nav-item
+                            a.nav-link(href='/contact') Contact
+
+
+        block header
+
+
+        block content
+        
+        hr
+
+
+
+        footer
+            .container
+                .row
+                    .col-lg-8.col-md-10.mx-auto
+                        ul.list-inline.text-center
+                            li.list-inline-item
+                                a(href='#')
+                                    span.fa-stack.fa-lg
+                                        i.fas.fa-circle.fa-stack-2x
+                                        i.fab.fa-twitter.fa-stack-1x.fa-inverse
+                            li.list-inline-item
+                                a(href='#')
+                                    span.fa-stack.fa-lg
+                                        i.fas.fa-circle.fa-stack-2x
+                                        i.fab.fa-facebook-f.fa-stack-1x.fa-inverse
+                            li.list-inline-item
+                                a(href='#')
+                                    span.fa-stack.fa-lg
+                                        i.fas.fa-circle.fa-stack-2x
+                                        i.fab.fa-github.fa-stack-1x.fa-inverse
+                        p.copyright.text-muted Copyright &copy; SE Engineering Dep 
+
+
+        // Bootstrap core JavaScript
+        script(src='../public/jquery/jquery.min.js')
+        script(src='../public/bootstrap/js/bootstrap.bundle.min.js')
+        // Custom scripts for this template
+        script(src='../public/js/clean-blog.min.js')
+        script(src='../public/jquery/myquery.js')
+
+
+
+
+
+

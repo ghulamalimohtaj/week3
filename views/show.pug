@@ -1,0 +1,37 @@
+extends layout2.pug 
+
+block header 
+    header.masthead(style="background-image: url('../public/img/se2.jpeg')")
+        .overlay
+        .container
+            .row
+                .col-lg-8.col-md-10.mx-auto
+                    .site-heading
+                        h2 Software Engineering Dep BLOG
+                        span.subheading Faculty of Computer Science, Balkh University.
+block content 
+    .container
+        .row 
+            .col-lg-8.col-md-10.mx-auto.text-left 
+                a.btn.btn-success(href='/post/create') Create Post
+        .row
+            .col-lg-8.col-md-10.mx-auto
+            #posts 
+                .post-preview  
+                    button Delete
+                    input(type="text" name="id" class="form-control" id="objId" value=`${post.id}`)
+                    
+                    form(action="/post?_method=PUT" method="POST")
+                        .form-group
+                            label(for="title") Title
+                            input(type="text" name="title" class="form-control" value=`${post.title}`)
+                        .form-group
+                            lable(for="author") Author
+                            input(type="text" name="author" class="form-control" value=`${post.author}`)
+                        .form-group 
+                            label(for="blog") Blog
+                            input(type="text" name="blog" class="form-control" value=`${post.blog}`)
+                        input(type="submit" value="Post" class="btn btn-success")
+                        script(type="text/javascript").
+                            const apiCall = (id)=>{alert('hello');}
+                            //- <div onClick={apiCall.bind(null, id)} />
