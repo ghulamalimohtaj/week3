@@ -43,8 +43,28 @@ app.get('/api', function(req, res){
 app.get('/post/create', function(req,res) {
   res.render('add');
 });
-app.put('/post', function(req,res) {
-  console.log('put fired');
+app.put('/post/edit/:id', function(req,res) {
+ Post.findByIdAndUpdate(req.params.id,req.body,{useFindAndModify:false})
+  .then(data=>{
+      if(!data){
+          res.status(404).send({message:"could not update"})
+      }else{
+        console.log('ID: '+req.params.id +' was updated');
+        res.redirect('/');
+      }
+  })
+  .catch(error=>{
+      res.status(500).send({message:"Error!!!"})
+  })
+});
+app.delete('/post/delete/:id', function(req,res) {
+  Post.findByIdAndDelete(req.params.id, function(err,docs) {
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect('/');
+    }
+  });
 });
 app.get("/post/:id/edit", async(req,res)=>{
   Blog.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
