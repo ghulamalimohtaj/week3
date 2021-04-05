@@ -4,13 +4,16 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
     title: {
-        type: String
+        type: String,
+        required: true
     },
     body: {
-        type: String
+        type: String,
+        required:true
     },
     author: {
-        type: String
+        type: String,
+        required:true
     }, 
     date: {
         type: String

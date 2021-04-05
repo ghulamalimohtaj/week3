@@ -16,8 +16,13 @@ block content
                 a.btn.btn-success(href='/post/create') Create Post
         .row
             .col-lg-8.col-md-10.mx-auto
-                    .post-preview
-                    
+                .post-preview
+                    each comment in comments 
+                        a(href='/comment/'+`${comment._id}`)
+                            h2.post-title
+                                | #{comment.comment}
+                            h3.post-subtitle
+                                | #{comment.posted}
                     input(type="hidden" name="id" class="form-control" id="objId" value=`${post.id}`)
                     
                     form(action="/post/edit/"+`${post.id}`+"?_method=PUT" method="POST")

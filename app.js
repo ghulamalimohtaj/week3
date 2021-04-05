@@ -6,6 +6,8 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var db = require('./mongoosedb.js');
 var Post = require('./models/post.js')
+var Comment = require('./models/comment.js')
+
 
 var app = express();
 /* A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. */
@@ -66,6 +68,7 @@ app.delete('/post/delete/:id', function(req,res) {
     }
   });
 });
+
 app.get("/post/:id/edit", async(req,res)=>{
   Blog.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
   .then(data=>{
@@ -85,9 +88,10 @@ app.get('/post/edit', function(req,res) {
 });
 //find a specific post
 app.get('/post/:id', function(req,res) {
+  var commentss = '';
   Post.findById(req.params.id,function(err,post) {
     res.render('show',
-    {post:post})
+    {post:post,comments:commentss})
   })
 });
 
@@ -123,12 +127,26 @@ app.post('/create', (req, res)=>{
       if(err){
         console.log(err);
       }
-
-      console.log(post);
       res.redirect('/');
   })
 })
 
+app.post('/comment', function(req,res) {
+  var comment = new Comment({
+    comment:req.body.comment,
+    post_id:req.body.post_id,
+    posted: new Date()
+  })
+  comment.save((err,comment) => {
+    if(err){
+      console.log(err);
+    }else{
+      console.log(comment);
+      res.redirect('/');
+    }
+  });
+
+});
 
 
 app.listen(8888);
