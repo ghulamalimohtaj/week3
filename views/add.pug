@@ -15,14 +15,19 @@ block content
             .col-lg-8.col-md-10.mx-auto.text-left
                 .h3 Add new blog
                 // New blog form
-                form(action="/create" method="post")
+                button(onclick="validate();") Test
+                form(action="/create" method="post" onsubmit="return validate();")
+                    p(id="err")
                     .form-group
                         label(for="title") Title
-                        input(type="text" name="title" class="form-control")
+                        input(type="text" name="title" id="title" class="form-control" required)
+                        p(id="titleErr" style="color:red")
                     .form-group
                         lable(for="author") Author
-                        input(type="text" name="author" class="form-control")
+                        input(type="text" name="author" id="author" class="form-control" required)
+                        p(id="authorErr" style="color:red")
                     .form-group 
                         label(for="blog") Blog
-                        input(type="text" name="blog" class="form-control")
+                        input(type="text" name="blog" id="body" class="form-control" required)
+                        p(id="bodyErr" style="color:red")
                     input(type="submit" value="Post" class="btn btn-success")
