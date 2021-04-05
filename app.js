@@ -18,8 +18,9 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 app.use(urlencodedParser);
 app.use(bodyParser.json());
 
-app.get('/', function(req, res){//0728501000
-  
+
+// Home page route
+app.get('/', function(req, res){
   Post.find((err, posts)=>{
       if(err){
         console.log('Error getting post');
@@ -31,20 +32,13 @@ app.get('/', function(req, res){//0728501000
   })
 });
 
-app.get('/api', function(req, res){
-  Post.find((err, posts)=>{
-      if(err){
-        console.log('Error getting post');
-      }
-      res.send(posts)
-  })
-});
-
 
 // route for adding posts
 app.get('/post/create', function(req,res) {
   res.render('add');
 });
+
+//Edit posts
 app.put('/post/edit/:id', function(req,res) {
  Post.findByIdAndUpdate(req.params.id,req.body,{useFindAndModify:false})
   .then(data=>{
@@ -59,6 +53,8 @@ app.put('/post/edit/:id', function(req,res) {
       res.status(500).send({message:"Error!!!"})
   })
 });
+
+//Delete post route
 app.delete('/post/delete/:id', function(req,res) {
   Post.findByIdAndDelete(req.params.id, function(err,docs) {
     if(err){
@@ -67,11 +63,6 @@ app.delete('/post/delete/:id', function(req,res) {
       res.redirect('/');
     }
   });
-});
-
-
-app.get('/post/edit', function(req,res) {
-  res.send('hello');
 });
 
 //find a specific post
@@ -98,10 +89,11 @@ app.get('/comment/:id', function(req,res) {
   });
 });
 
+// Update comments
 app.put('/comment/:id', function(req,res) {
   Comment.findByIdAndUpdate(req.params.id,req.body,{useFindAndModify:false})
    .then(data=>{
-       if(!data){
+       if(!data){// No such a data
            res.status(404).send({message:"could not update"})
        }else{
          res.redirect('/post/'+req.body.post_id);
@@ -112,6 +104,7 @@ app.put('/comment/:id', function(req,res) {
    })
  });
 
+// Delete comments
 app.delete('/comment/:id', function(req,res) {
   Comment.findByIdAndDelete(req.params.id, function(err,result) {
     if(err){
@@ -122,11 +115,12 @@ app.delete('/comment/:id', function(req,res) {
   });
 });
 
-
+// return about page
 app.get('/about', function(req, res){
   res.render('about')
 });
 
+// return contact page
 app.get('/contact', function(req, res){
   res.render('contact')
 });
@@ -135,13 +129,14 @@ app.get('/contact', function(req, res){
 
 //simple adding document.
 app.post('/create', (req, res)=>{
-  var post = new Post({
+  var post = new Post({/// loading data
     title: req.body.title,
     body: req.body.blog,
     author: req.body.author,
     date: new Date()
   })
 
+  //fire save trigger
   post.save((err, post)=>{
       if(err){
         console.log(err);
@@ -150,6 +145,7 @@ app.post('/create', (req, res)=>{
   })
 })
 
+// add new commnet
 app.post('/comment', function(req,res) {
   var comment = new Comment({
     comment:req.body.comment,
@@ -161,11 +157,11 @@ app.post('/comment', function(req,res) {
       console.log(err);
     }else{
       console.log(comment);
+      // reutrn to home page
       res.redirect('/');
     }
   });
 
 });
-
 
 app.listen(8888);

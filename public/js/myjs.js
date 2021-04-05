@@ -1,4 +1,5 @@
 function validate() {
+    // Accessing DOM objects
     var author = document.getElementById('author');
     var t = document.getElementById('title');
     var body = document.getElementById('body');
@@ -6,10 +7,12 @@ function validate() {
     var authorFlag = true;
     var bodyFlag = true;
 
- 
+    // pattern for title validation not ot have any punctuation
     let titleRegex = /[0-9!@#$%^&*+=/.>?{}<]/ig;
-    let authorRegex = /[^A-z]/ig;
+    let authorRegex = /[^A-z]/ig;//RegEx pattern for author validation to have just alphabet letters
     if(t.value.match(titleRegex) == null){
+        // it has invalid character(s)
+        //
         titleFlag = false
         document.getElementById('titleErr').innerHTML = "Punctuation is not allowed for title";
     }else{
@@ -28,5 +31,5 @@ function validate() {
         bodyFlag = true;
     }
 
-    return authorFlag && bodyFlag && titleFlag;
+    return authorFlag && bodyFlag && titleFlag; // allow submission if everything was valid
 }
