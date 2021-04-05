@@ -69,39 +69,58 @@ app.delete('/post/delete/:id', function(req,res) {
   });
 });
 
-app.get("/post/:id/edit", async(req,res)=>{
-  Blog.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
-  .then(data=>{
-      if(!data){
-          res.status(404).send({message:"could not update"})
-      }else{
-          res.redirect('/');
-      }
-  })
-  .catch(error=>{
-      res.status(500).send({message:"Error!!!"})
-  })
-});
 
 app.get('/post/edit', function(req,res) {
   res.send('hello');
 });
+
 //find a specific post
 app.get('/post/:id', function(req,res) {
   var commentss = '';
+  Comment.find({post_id:req.params.id},(err,comm) => {
+    commentss = comm;
+  });
   Post.findById(req.params.id,function(err,post) {
+    console.log(commentss);
     res.render('show',
     {post:post,comments:commentss})
   })
 });
 
-
-
-app.delete('/:id', function(req,res) {
-  console.log(req.pamars.id);
+// Go on a specific comment in order to delete or update
+app.get('/comment/:id', function(req,res) {
+  Comment.findById(req.params.id,(err,comment)=> {
+    if(err){
+      conlose.log(err);
+    }else{
+      res.render('comment',{comment:comment});
+    }
+  });
 });
-// post data coming from add page
 
+app.put('/comment/:id', function(req,res) {
+  Comment.findByIdAndUpdate(req.params.id,req.body,{useFindAndModify:false})
+   .then(data=>{
+       if(!data){
+           res.status(404).send({message:"could not update"})
+       }else{
+         res.redirect('/post/'+req.body.post_id);
+       }
+   })
+   .catch(error=>{
+       res.status(500).send({message:"Error!!!"})
+   })
+ });
+
+app.delete('/comment/:id', function(req,res) {
+  Comment.findByIdAndDelete(req.params.id, function(err,result) {
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect('/post/'+req.body.postId);
+    }
+  });
+});
 
 
 app.get('/about', function(req, res){

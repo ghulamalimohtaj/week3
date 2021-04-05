@@ -16,13 +16,7 @@ block content
                 a.btn.btn-success(href='/post/create') Create Post
         .row
             .col-lg-8.col-md-10.mx-auto
-                .post-preview
-                    each comment in comments 
-                        a(href='/comment/'+`${comment._id}`)
-                            h2.post-title
-                                | #{comment.comment}
-                            h3.post-subtitle
-                                | #{comment.posted}
+                    .post-preview
                     input(type="hidden" name="id" class="form-control" id="objId" value=`${post.id}`)
                     
                     form(action="/post/edit/"+`${post.id}`+"?_method=PUT" method="POST")
@@ -37,5 +31,18 @@ block content
                             input(type="text" name="body" class="form-control" value=`${post.body}`)
                         .from-group
                             input(type="submit" value="Update" class="btn btn-success")
-                            form(action="/post/delete/"+`${post.id}`+"?_method=DELETE" method="POST")
-                            input(type="submit" value="Delete" class="btn btn-danger" style="float:right")
+
+                    form(action="/post/delete/"+`${post.id}`+"?_method=DELETE" method="POST" style="position:relative;left:0px;bottom:50px")
+                        input(type="submit" value="Delete" class="btn btn-danger" style="float:right")
+                        br
+                        br
+                        br
+                        hr
+                        h6 Comments
+                        .post-title
+                        ul
+                            each cmt in comments 
+                                li
+                                    a(href='/comment/'+`${cmt._id}`)
+                                        | #{cmt.comment} --->
+                                        | #{cmt.posted}
